@@ -1,0 +1,40 @@
+{
+  "name": "@tarektarho/frontend-kit",
+  "version": "1.0.0",
+  "description": "Typed utilities for frontend JavaScript apps",
+  "main": "./dist/frontend-kit.umd.js",
+  "module": "./dist/frontend-kit.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/frontend-kit.es.js",
+      "require": "./dist/frontend-kit.umd.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && vite build",
+    "prepublishOnly": "pnpm run build"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "keywords": [
+    "typescript",
+    "utilities",
+    "frontend",
+    "library"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tarektarho/FrontendKit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5"
+  },
+  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
+}
