@@ -1,6 +1,6 @@
 {
   "name": "@tarektarho/frontend-kit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typed utilities for frontend JavaScript apps",
   "main": "./dist/frontend-kit.umd.js",
   "module": "./dist/frontend-kit.es.js",
