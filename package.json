@@ -25,7 +25,8 @@
   "scripts": {
     "build": "npx tsc --project tsconfig.json && vite build",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "publish": "pnpm publish --access public"
   },
   "author": "Tarek Tarho",
   "license": "MIT",
