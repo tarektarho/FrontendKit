@@ -1,22 +1,16 @@
 {
   "name": "@tarektarho/frontend-kit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Typed utilities for frontend JavaScript apps",
   "main": "./dist/frontend-kit.umd.js",
   "module": "./dist/frontend-kit.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/frontend-kit.es.js",
       "require": "./dist/frontend-kit.umd.js",
       "default": "./dist/frontend-kit.es.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/index.d.ts"
-      ]
     }
   },
   "files": [
