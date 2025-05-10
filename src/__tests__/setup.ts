@@ -14,7 +14,9 @@ const localStorageMock = (() => {
     removeItem: (key: string) => {
       delete store[key]
     },
-    length: 0,
+    get length() {
+      return Object.keys(store).length
+    },
     key: (index: number) => Object.keys(store)[index] || null,
   }
 })()
