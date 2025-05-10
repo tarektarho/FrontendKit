@@ -1,4 +1,5 @@
 # FrontendKit
+[![codecov](https://codecov.io/gh/tarektarho/FrontendKit/branch/main/graph/badge.svg?token=Aayyl01R1h)](https://codecov.io/gh/tarektarho/FrontendKit)
 
 **FrontendKit** is a TypeScript utility library for modern frontend JavaScript projects. It includes strongly typed, reusable functions that simplify everyday development tasks — starting with robust `localStorage` handling.
 
