@@ -1,95 +1,105 @@
 # FrontendKit
 
-**FrontendKit** is a collection of **typed utilities** designed to make working with frontend JavaScript projects more efficient. It provides commonly used utility functions with built-in **type safety** for a more streamlined development experience.
+**FrontendKit** is a TypeScript utility library for modern frontend JavaScript projects. It includes strongly typed, reusable functions that simplify everyday development tasks — starting with robust `localStorage` handling.
 
-## 🛠️ Installation
+---
 
-### **Using pnpm**
+## 📦 Installation
 
-To install **FrontendKit** into your project, use `pnpm`:
+Install the package using your preferred package manager:
+
+### **pnpm**
 
 ```bash
 pnpm add @tarektarho/frontend-kit
 ```
 
-### **Using npm**
-
-If you prefer `npm`, you can also install it with:
+### **npm**
 
 ```bash
 npm install @tarektarho/frontend-kit
 ```
 
-### **Using yarn**
-
-Alternatively, if you use `yarn`, install it with:
+### **yarn**
 
 ```bash
 yarn add @tarektarho/frontend-kit
 ```
 
-## 💡 Requirements
+---
 
-To use **FrontendKit**, you need the following:
+## ✅ Requirements
 
-* **TypeScript 3.0+**: The library provides type definitions, so you should have TypeScript set up in your project.
-* **pnpm, npm, or yarn**: Use your preferred package manager to install **FrontendKit**.
-* A **modern browser** that supports ES6+ features, since the library is written in TypeScript and relies on newer JavaScript features.
+- **TypeScript** (`>= 4.0`) – to take advantage of type safety.
+- **Modern build tools** like Vite, Webpack, or ESBuild (ESNext-compatible).
+- **Browser environment** (uses `localStorage`).
 
-## 🔧 Usage
+---
 
-### **LocalStorage Utilities**
+## 🧰 Usage
 
-**FrontendKit** provides utilities for safely retrieving and parsing data from `localStorage`. Here's an example of how to use the utility function:
+### 🗝️ `getSafeFromLocalStorage`
 
-#### `getSafeFromLocalStorage` Function
+Safely retrieves and parses values (JSON, string, or boolean) from `localStorage`. It handles edge cases like invalid JSON and missing keys, and optionally invokes a failure callback for cleanup (e.g., logout).
 
-This utility allows you to safely retrieve and parse data from `localStorage`. It supports JSON, boolean, or string values and provides fallback functionality in case of failure.
+#### 🔧 API
 
-```typescript
-import { getSafeFromLocalStorage } from '@tarektarho/frontend-kit';
-
-// Retrieve a boolean value from localStorage with a fallback
-const userLoggedIn = getSafeFromLocalStorage<boolean>('userLoggedIn', false);
-console.log(userLoggedIn); // true or false
-
-// Retrieve an object from localStorage
-const userData = getSafeFromLocalStorage<object>('userData', {});
-console.log(userData);
-
-// You can also use a failure callback
-getSafeFromLocalStorage('userSettings', {}, (key, error) => {
-  console.error(`Failed to retrieve key ${key}:`, error);
-});
+```ts
+getSafeFromLocalStorage<T>(
+  key: string,
+  failureCallback?: () => void
+): T | string | boolean | null
 ```
 
-### **API**
+- `key`: The localStorage key.
+- `failureCallback` _(optional)_: Called if parsing fails or data is invalid.
 
-#### `getSafeFromLocalStorage<T>(key: string, fallback: T, onFailure?: FailureCallback): T`
+#### 📝 Example
 
-* **key**: The key to retrieve from `localStorage`.
-* **fallback**: The default value to return if the key doesn't exist or there is an error.
-* **onFailure**: Optional callback that will be invoked if there is an error (e.g., invalid JSON).
+```ts
+import { getSafeFromLocalStorage } from "@tarektarho/frontend-kit"
 
-#### **Return Type**: The parsed value of type `T`, or the fallback value if retrieval fails.
+// Parse JSON object
+const user = getSafeFromLocalStorage<{ name: string }>("user")
 
-## 📄 Example
+// Parse boolean
+const isLoggedIn = getSafeFromLocalStorage<boolean>("isLoggedIn")
 
-### **Storing and Retrieving Data**
-
-```typescript
-// Saving data to localStorage
-localStorage.setItem('userLoggedIn', 'true');
-localStorage.setItem('userData', JSON.stringify({ name: 'John Doe', age: 30 }));
-
-// Using the utility to retrieve and parse data
-const loggedIn = getSafeFromLocalStorage<boolean>('userLoggedIn', false);
-const user = getSafeFromLocalStorage<object>('userData', {});
-
-console.log(loggedIn); // true or false
-console.log(user);     // { name: 'John Doe', age: 30 }
+// With failure callback
+const token = getSafeFromLocalStorage<string>("authToken", () => {
+  console.warn("Invalid or missing authToken — logging out.")
+  localStorage.clear()
+})
 ```
 
-## 🔒 License
+This function will:
 
-**FrontendKit** is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for more details.
+- Return `true`/`false` if the stored value is a string boolean.
+- Attempt `JSON.parse` and return the parsed result.
+- Return `null` on failure, and invoke the `failureCallback` if provided.
+
+---
+
+## 🧪 Example: storing and reading
+
+```ts
+// Save data
+localStorage.setItem("user", JSON.stringify({ name: "Tarek" }))
+localStorage.setItem("isLoggedIn", "true")
+
+// Retrieve safely
+const user = getSafeFromLocalStorage<{ name: string }>("user")
+const loggedIn = getSafeFromLocalStorage<boolean>("isLoggedIn")
+```
+
+---
+
+## 📜 License
+
+Licensed under the [MIT License](LICENSE).
+
+---
+
+## 🧱 Contributing
+
+Contributions are welcome! Feel free to open issues or PRs to add new utilities or enhance existing ones.
